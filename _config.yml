@@ -1,23 +1,30 @@
 # Settings
-baseurl: /class-boilerplate
+baseurl: /docet
 permalink: pretty
 
 # About
-title: Class boilerplate
-tagline: A Jekyll template for LMS
+title: D.O.C.E.T
+tagline: "DeFei Orationes, C... Et T..."
 authors:
   - name: Luca De Feo
     url: 'http://defeo.lu'
-created: 2014
+created: 2015
 license:
-  name: MIT license
-  shortname: MIT license
-  url: /LICENSE
+  name: Creative Commons 4.0 Attribution-ShareAlike
+  shortname: CC-BY-SA 4.0
+  url: http://creativecommons.org/licenses/by-sa/4.0/
+  badge: http://i.creativecommons.org/l/by-sa/4.0/80x15.png
   
 # Collections
 collections:
   addons:
     output: true
+
+defaults:
+  - scope:
+      path: ''
+    values:
+      layout: 'default'
 
 kramdown:
   parse_block_html: true
