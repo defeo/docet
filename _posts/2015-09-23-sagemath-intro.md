@@ -222,9 +222,3 @@ Simply open a new Jupyter Notebook.
 {:.centered}
 
 </section>
-<section>
-
-</section>
-<section>
-
-</section>
