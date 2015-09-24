@@ -218,7 +218,7 @@ you might need to point your browser to <http://localhost:8080>.
 
 Simply open a new Jupyter Notebook.
 
-### [Go to the demo!]({% include nbviewer.url url='assets/posts/2015-09-23-sagemath-demo.ipynb' %})
+### [Go to the demo!]({% include nbviewer.url url='assets/jupyter/2015-09-23-sagemath-demo.ipynb' %})
 {:.centered}
 
 </section>
