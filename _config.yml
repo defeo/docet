@@ -14,17 +14,34 @@ license:
   shortname: CC-BY-SA 4.0
   url: http://creativecommons.org/licenses/by-sa/4.0/
   badge: http://i.creativecommons.org/l/by-sa/4.0/80x15.png
-  
-# Collections
-collections:
-  addons:
-    output: true
 
+# Display a log in the top bar
+#logo: assets/logo/eLeMentS.svg
+
+# Display a GitHub fork me logo in the lower right corner
+forkme: yes
+
+# Default configuration for pages.
+# Can be used to activate addons on all pages.
 defaults:
   - scope:
       path: ''
     values:
-      layout: 'default'
+      layout: default
+
+# Collections
+collections:
+  # Leave that addons collection like this
+  # if you want to use addons
+  addons:
+    output: true
+    permalink: /:collection/:path:output_ext
 
 kramdown:
   parse_block_html: true
+
+# SASS configuration.
+# Better not touch this
+sass:
+  sass_dir: assets/css
+  style: compressed
