@@ -279,8 +279,8 @@ manipulate them...
 |**Romeo** || **Lady Capulet** || **Juliet**
 | Picks $$0<a<N$$ at random; || Picks $$0<c<N$$ at random; || Picks $$0<b<N$$ at random;
 | Computes $$A = g^a$$; || Computes $$C = g^c$$; || Computes $$B = g^b$$;
-|| $$—A→$$ || $$←C—$$
-|| $$—C→$$|| $$←B—$$
+|| $$—A→$$ || $$—C→$$
+|| $$←C—$$|| $$←B—$$
 | Computes $$S = C^a = g^{ca}$$ || Computes $$S = A^c = g^{ac}$$
 ||| Computes $$S' = B^c = g^{bc}$$ || Computes $$S' = C^b = g^{cb}$$
 || $$⇐S⇒$$|| $$⇐S'⇒$$
