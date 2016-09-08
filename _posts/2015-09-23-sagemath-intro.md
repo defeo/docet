@@ -4,6 +4,7 @@ addons:
   slideshow: yes
   highlightjs: yes
   mathjax: yes
+  style_goodies: yes
 category: class
 tags: SageMath, elliptic curves
 ---
