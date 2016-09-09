@@ -11,6 +11,7 @@ tags: cryptography, discrete logarithm, Diffie-Hellman, elliptic curves, isogeni
 <div style="display:none">
 $$
 \def\FF{\mathbb{F}}
+\def\PP{\mathbb{P}}
 \def\bk#1{\lvert#1\rangle}
 \def\abs#1{\lvert#1\rvert}
 \def\Enc{\mathrm{Enc}}
@@ -75,7 +76,7 @@ Cryptography, helping lovers since 2000 BC
 
 ...**and:** Secret sharing, homomorphic encryption, multiparty
 computation, plausible deniability, anonimity, proofs of knowledge,
-proofs of work, ...
+proofs of work, ...
 
 ---
 
@@ -102,7 +103,7 @@ love, they have agreed on a *secret key* **S**.
 - Widely used during war times, played a key role in WWII;
 - The *cryptanalytic* efforts of WWII gave birth to the modern computer
   (ever heard of **Enigma**, **Alan Turing**, **Bletchley Park**,
-  **Colossus**, ...)
+  **Colossus**, ...)
   
   ![](https://upload.wikimedia.org/wikipedia/en/5/5e/The_Imitation_Game_poster.jpg)
   {:.centered}
@@ -443,8 +444,9 @@ But how does Juliet know that the message is really from Romeo?
 - All along we have assumed that we trust Tinder to correctly present
   Romeo and Juliet's public keys. But what if Lady Capulet manipulates
   Tinder? Distributing public keys in a safe manner requires a trust
-  infrastructure (Public Key Infrastructure (PKI), web of trust,
-  ...). This is a complex subject, out of the scope of this course.
+  infrastructure (Public Key Infrastructure (PKI), web of
+  trust, ...). This is a complex subject, out of the scope of this
+  course.
 
 ---
 ---
@@ -453,37 +455,184 @@ But how does Juliet know that the message is really from Romeo?
 
 ### Generic attacks on DLP
 
-- Pollard Rho
+Let $$G$$ be a cyclic group of order $$N$$, let $$g$$ be a generator.
 
-- Pohlig-Hellman
+**DLP:** Given $$h = g^a$$, find $$a$$.
+
+##### Baby-step/giant-step, Pollard Rho
+
+**Idea:** look for *collisions* of the form
+
+$$g^x = h^y,$$
+
+then $$a = x/y \mod N$$.
+
+- **Baby-step/giant-step:** time/memory tradeoff, $$O(\sqrt{N})$$ time and memory;
+- **Pollard Rho:** random walk, based on *birthday paradox*,
+  $$O(\sqrt{N})$$ time, constant memory.
+
+##### Pohlig-Hellman
+
+Suppose $$N = p_1·p_2 \cdots p_n$$, by the Chinese remainder theorem
+
+$$G ≃ ℤ/Nℤ = ℤ/p_1ℤ × ℤ/p_2ℤ × \cdots x ℤ/p_nℤ,$$
+
+- Solve a discrete logarithm in each of $$ℤ/p_iℤ$$ (using BSGS,
+  Pollard Rho, ...),
+- Lift the solution using CRT.
+
+**Complexity:** $$O(\sqrt{p})$$, where $$p$$ is the largest factor of $$N$$.
 
 ---
 
 ### Sub-exponential algorithms for finite fields
 
-Sub-exponential complexity
+$$L_N(α,c) = \exp(c\log(N)^α · \log\log(N)^{1-α})$$
 
-- Index calculus
+- $$L_N(0,·)$$ polynomial complexity,
+- $$L_N(1,·)$$ exponential complexity.
 
-- NFS
+##### Index calculus
 
-- FFS
+- First discovered by Gauss;
+- Based on the concept of *smooth* elements.
 
-- Quasi-polynomial
+> #### Smooth element
+>
+> We say that an integer is $$B$$-smooth if it is
+> the product of primes $$<B$$.
+
+> #### General index calculus
+>
+> **Input:** $$g,h∈\FF_q^*$$,
+> **Output:** $$\log_g(h)$$.
+>
+> 1. Choose a smoothness basis $$\mathcal{B} = \{x\;\vert\; x<B\}$$;
+> 2. Choose a field generator $$b∈B$$;
+> 3. Compute the discrete logs base $$b$$ of all elements of $$\mathcal{B}$$:
+>    
+>    - Collect enough *relations* of the form
+>      
+>      $$\prod (b_i)^{e_i} = 1;$$
+>
+>    - Put them in a matrix, use linear algebra to find each discrete log;
+> 4. Rewrite $$g$$ and $$h$$ as products of elements of $$\mathcal{B}$$;
+> 
+> **Output:** $$\log_g(h)$$.
+{:.box}
+
+##### Index calculs variants
+
+- **Classical:** $$B\sim L_N(1/2,·)$$, complexity $$L_N(1/2,·)$$.
+
+- **Number Field Sieve:** $$B\sim L_N(1/3,·)$$, complexity
+  $$L_N(1/3,·)$$; suitable for $$\FF_q$$ with $$q$$ prime or a small
+  prime power.
+
+- **Function Field Sieve:** $$B\sim L_N(1/3,·)$$, complexity
+  $$L_N(1/3,·)$$; suitable for $$\FF_q$$ with a large prime power.
+
+- **Quasi-polynomial (Barbulescu, Gaudry, Joux, Thomé 2011):**
+  $$B\sim (\log N)^{O(1)}$$, complexity $$O((\log N)^{\log\log N})$$,
+  suitable for $$\FF_q$$ of very small characteristic.
 
 ---
 
 ### Secrity levels
 
+It is usually assumed that **unfeasible** amounts of computation start
+at $$\sim 2^{80}$$ elementary operations.
+
+For good measure
+
+- A CPU @1GHz can do $$2^{30}$$ elementary ops/sec;
+- Amazon EC2 cloud is reported to have delivered (in 2013) approx
+  $$2^{50}$$ ops/sec at a rate of $$0.5$$ $/sec;
+- The **distributed** Bitcoin infrastructure delivers (in 2016) more
+  than
+  [$$2^{60}$$ ops/sec](https://blockchain.info/en/charts/hash-rate?scale=1&timespan=all);
+- *Exascale* computing ($$2^{60}$$ ops/sec) is
+  [expected to arrive by 2018](https://en.wikipedia.org/wiki/Exascale_computing).
+
+| Security level | Ideal | DLP over $$\FF_p$$ | Elliptic curve DLP | NSA recommendation
+|-
+| 80 | 160 | 1024 | 160
+| 96 | 192 | 1536 | 192
+|112 | 224 | 2048 | 224
+|128 | 256 | 3072 | 256 | SECRET
+|192 | 384 | 7680 | 384 | TOP SECRET
+|256 | 512 |15360 | 512
+{:.pretty.centered}
+
+Key lenghts (in bits) for given security level.
+
+
 ---
 
 ### Elliptic curves
 
-- Projective space
+#### Projective space
 
-- Group law
+Let $$k$$ be a field, the *projective space* $$\PP^2(k)$$ is the set
+of all lines in $$k^3$$ **passing through the origin**.
 
-- Hasse's theorem
+Equivalently, it is the set of triples
+
+$$(X:Y:Z) ≠ (0:0:0),$$
+
+up to the equivalence relation
+
+$$(X:Y:Z) \sim (λX:λY:λZ).$$
+
+---
+
+#### Elliptic curves
+
+An elliptic curve over a field $$k$$ (of characteristic $$>3$$) is the
+set of *projective solutions* of an equation
+
+$$E \;:\; Y^2Z = X^3 + aXZ^2 + bZ^3,$$
+
+with $$a,b\in k$$, with a *distinguished point* (the *point at
+infinity* $$(0:1:0)$$).
+
+---
+
+#### Group law
+
+The *chord and tangent law*
+
+![](https://upload.wikimedia.org/wikipedia/commons/c/c1/ECClines.svg){: style="width:100%"}
+
+Let's work out [some examples]({% include nbviewer.url url='assets/jupyter/2016-09-08-diffie-hellman.ipynb#Elliptic-curves' %})
+
+---
+
+#### Hasse's theorem
+
+> #### Theorem
+>
+> Let $$E/k$$ be an elliptic curve defined over a finite field $$k$$,
+> then the number $$\#E(k)$$ of *rational points* of $$E$$ is bounded
+> by
+>
+> $$\abs{\#E(k) - q + 1} ≤ 2\sqrt{q}.$$
+{:.box}
+
+##### Bonus
+
+- All cardinalities in the interval are attained;
+- There tend to be more curves toward the middle (see
+  [Sato/Tate conjecture](https://en.wikipedia.org/wiki/Sato%E2%80%93Tate_conjecture)).
+
+##### ECDLP
+
+- Choose $$\FF_q$$ with e.g. $$q\sim 2^{256}$$;
+- Take curves at random;
+- Use the
+  [Schoof-Elkies-Atkin point counting algorithm](https://en.wikipedia.org/wiki/Schoof%E2%80%93Elkies%E2%80%93Atkin_algorithm)
+  to compute $$\#E(\FF_q)$$;
+- Stop once you have found a curve with **prime order**.
 
 ---
 ---
@@ -498,7 +647,7 @@ Sub-exponential complexity
 
 || Computer science | Physics
 |-
-| 1642 | Blaise Pascal's *mechanical calculator
+| 1642 | Blaise Pascal's *mechanical calculator*
 | 1687 || Isaac Newton's *Philosophiæ Naturalis Principia Mathematica*
 | 1821 || André Ampère's *theory of electrodynamics*
 | 1822 | Charles Babbage's *difference engine*
@@ -521,7 +670,7 @@ Sub-exponential complexity
 | 1947 | Transistors
 | 1952 | Integrated circuits
 | 1964 || John S. Bell's *inequalties*
-| 1980 || Quantum computing (Yuri Manin, Richard Feynman, ...)
+| 1980 || Quantum computing (Yuri Manin, Richard Feynman, ...)
 | 1994 || Peter Shor's *factoring algorithm*
 | 2??? | First quantum computer
 {:.pretty}
@@ -533,18 +682,18 @@ Sub-exponential complexity
 ##### Classical computers
 
 - Elementary states (bits): either **0** or **1**;
-- Elementary transformations (boolean gates): **AND**, **OR**, **NOT**, ...;
+- Elementary transformations (boolean gates): **AND**, **OR**, **NOT**, ...;
 - Information can be copied at will.
 
 ##### Quantum computers
 
 - Quantum states (qubits): *a mix of **0** and **1***;
 - Elementary transformations (quantum gates), *reversible*:
-  **Hadamard**, **CNOT**, **Pauli X**, **Y** and **Z**, **CNOT**, **Toffoli**, **Fredkin**, ...;
+  **Hadamard**, **CNOT**, **Pauli X**, **Y** and **Z**, **CNOT**, **Toffoli**, **Fredkin**, ...;
 - Quantum information *collapses* to a classical state when read;
 - *No-cloning theorem*: information cannot be copied at will.
 
-[Quantum cats]()
+#### [Quantum cats]()
 
 ---
 
@@ -605,7 +754,7 @@ Two or more qubits can become *entangled*, also called a *superposition state*.
 - *Unitary* matrices acting over the state space.
 - **Reversible**, because **physics is** (at small scale, at least).
 - Small set of **elementary gates** (similar to **AND**,
-  **OR**, ...).
+  **OR**, ...).
 
 ##### Quantum circuits
 
@@ -640,9 +789,47 @@ Or is it?
 
 ### Post-quantum cryptography
 
-Slides at <http://defeo.lu/talks/yacc-27-09-12.pdf>
+Slides at <http://defeo.lu/talks/yacc-27-09-12.pdf>{:target="blank"}
 
 ---
 ---
 
 ## References
+
+1. W. Diffie, M. Hellman,
+   [**New Directions in Cryptography**](https://scholar.google.fr/scholar?q=new+directions+in+cryptography). IEEE transactions on Information Theory, 1976.
+
+1. R.L. Rivest, A. Shamir, L. Adleman,
+ [*A method for obtaining digital signatures and public-key cryptosystems*](https://scholar.google.fr/scholar?q=rivest+shamir+adleman)
+ Communications of the ACM, 1978.
+
+1. T. El Gamal, [*A public key cryptosystem and a signature scheme based on discrete logarithms*](https://scholar.google.fr/scholar?q=taher+el+gamal). Advances
+   in cryptology, 1984.
+
+1. C.P. Schnorr,
+   [*Efficient signature generation by smart cards*](https://scholar.google.fr/scholar?q=schnorr+signature). Journal
+   of cryptology, 1991.
+
+1. A. Joux, [*Algorithmic cryptanalysis*](https://scholar.google.fr/scholar?q=antoine+joux++algorithmic+cryptanalysis). CRC Press, 2009.
+
+1. R. Barbulescu, P. Gaudry, A. Joux, E. Thomé,
+   [*A heuristic quasi-polynomial algorithm for discrete logarithm in finite fields of small characteristic*](http://arxiv.org/pdf/1306.4244). EuroCrypt,
+   2014.
+
+1. S. Galbraith,
+[*Mathematics of Public Key Cryptography*](https://www.math.auckland.ac.nz/~sgal018/crypto-book/crypto-book.html). Cambridge University Press, 2012.
+
+1. M.A. Nielsen, I.L. Chuang,
+[*Quantum Computation and Quantum Information*](http://www.cambridge.org/us/academic/subjects/physics/quantum-physics-quantum-information-and-quantum-computation/quantum-computation-and-quantum-information-10th-anniversary-edition). 10th Anniversary Edition. Cambridge University Press, 2011.
+
+1. A. Rostovtsev, A. Stolbunov,
+   [*Public-Key Cryptosystem Based on Isogenies*](http://eprint.iacr.org/2006/145.pdf).
+   IACR Cryptology ePrint Archive, 2006.
+
+1. D. Jao, L. De Feo,
+   [*Towards quantum-resistant cryptosystems from supersingular elliptic curve isogenies*](http://cacr.uwaterloo.ca/techreports/2011/cacr2011-32.pdf)
+   International Workshop on Post-Quantum Cryptography, 2011.
+
+1. L. De Feo, D. Jao, J. Plût,
+   [*Towards quantum-resistant cryptosystems from supersingular elliptic curve isogenies*](http://eprint.iacr.org/2011/506.pdf).
+   Journal of Mathematical Cryptology, 2014.
