@@ -10,8 +10,9 @@ tags: cryptography, discrete logarithm, Diffie-Hellman, elliptic curves, isogeni
 
 <div style="display:none">
 $$
-\def\ZZ{\mathbb{Z}}
 \def\FF{\mathbb{F}}
+\def\bk#1{\lvert#1\rangle}
+\def\abs#1{\lvert#1\rvert}
 \def\Enc{\mathrm{Enc}}
 \def\Dec{\mathrm{Dec}}
 \def\Sig{\mathrm{Sig}}
@@ -174,7 +175,7 @@ Ok, $$S$$ is a common *something*. **But is it a secret?**
 
 How can she recover $$S$$?
 
-Let's see an [example with $$G=\ZZ/N\ZZ$$]().
+Let's see an [example with $$G=ℤ/Nℤ$$]({% include nbviewer.url url='assets/jupyter/ 2016-09-08-diffie-hellman.ipynb' %}).
 
 ---
 
@@ -223,7 +224,7 @@ we can hope it to take **VERY LOOONG** to solve.
 We say that DLP (or CDH) is *hard* in $$G$$ if no algorithm solves it
 in polynomial time in $$\log N$$.
 
-- DLP is clearly **not hard** in $$(\ZZ/N\ZZ, +)$$.
+- DLP is clearly **not hard** in $$(ℤ/Nℤ, +)$$.
 - DLP is at worse exponential in $$\log N$$ (hint: test all exponents
   $$<N$$).
 - Advanced algorithms (Baby step-giant step, Pollard
@@ -246,7 +247,7 @@ groups...
 
 ### The classical Diffie-Helman protocol
 
-Let $$q$$ be a prime, the *modular integers* $$\ZZ/q\ZZ$$ form a
+Let $$q$$ be a prime, the *modular integers* $$ℤ/qℤ$$ form a
 finite field, also written $$\FF_q$$.
 
 Denote by $$\FF_q^*$$ the *multiplicative group of units* of
@@ -262,7 +263,7 @@ given by multiplication.
 If $$q-1$$ has a **large prime factor**, the DLP in $$\FF_q^*$$
 **seems to be hard**!
 
-[An example]().
+[An example]({% include nbviewer.url url='assets/jupyter/ 2016-09-08-diffie-hellman.ipynb' %}).
 
 ---
 
@@ -328,7 +329,7 @@ anyone can use to send her private message.
 ##### Parameters
 
 - Finite field $$\FF_q$$;
-- Generator $$g∈\FF_q$$;
+- Generator $$g∈\FF_q^*$$;
 
 ##### Keys
 
@@ -338,7 +339,7 @@ anyone can use to send her private message.
 
 > #### Encryption
 >
-> **Input:** Public key $$K_p$$, a message $$m∈\FF_q$$;
+> **Input:** Public key $$K_p$$, a message $$m∈\FF_q^*$$;
 >
 > 1. Pick random $$0≤b<q-1$$;
 > 2. Compute $$c_1 = g^b$$;
@@ -350,7 +351,7 @@ anyone can use to send her private message.
 
 > #### Decryption
 >
-> **Input:** Secret key $$a$$, a cyphertext $$(c_1,c_2)∈\FF_q × \FF_q$$;
+> **Input:** Secret key $$a$$, a cyphertext $$(c_1,c_2)∈\FF_q^* × \FF_q^*$$;
 >
 > 1. Compute $$s = c_1^a$$ (*shared secret*);
 > 2. Compute $$m = c_2 · s^{-1}$$;
@@ -401,8 +402,8 @@ But how does Juliet know that the message is really from Romeo?
 ##### Parameters
 
 - Finite field $$\FF_q$$;
-- Generator $$g∈\FF_q$$;
-- A *hash function* $$H: \{0,1\}^* → \FF_q$$;
+- Generator $$g∈\FF_q^*$$;
+- A *hash function* $$H: \{0,1\}^* → \FF_q^*$$;
 
 ##### Keys
 
@@ -426,7 +427,7 @@ But how does Juliet know that the message is really from Romeo?
 > **Input:** Public key $$K_p$$, a message $$m$$, a signature $$(s, e)$$;
 >
 > 1. Compute $$r = (K_p)^e · g^s$$;
-> 2. Compute $$e' = H(M \| r)$$;
+> 2. Compute $$e' = H(m \| r)$$;
 >
 > **Output:** OK if $$e = e'$$, FAIL otherwise.
 {:.box}
@@ -450,22 +451,196 @@ But how does Juliet know that the message is really from Romeo?
 
 ## Modern day key exchange
 
-### Sub-exponential algorithms
+### Generic attacks on DLP
+
+- Pollard Rho
+
+- Pohlig-Hellman
+
+---
+
+### Sub-exponential algorithms for finite fields
+
+Sub-exponential complexity
+
+- Index calculus
+
+- NFS
+
+- FFS
+
+- Quasi-polynomial
+
+---
+
+### Secrity levels
+
+---
 
 ### Elliptic curves
 
-### Side channel analysis
+- Projective space
 
-### Montgomery ladder
+- Group law
 
-### x-only laws
-
-### Fault attacks, twist security, ed25519?
+- Hasse's theorem
 
 ---
 ---
 
 ## Key exchange in a post-quantum world
+
+<video src="https://upload.wikimedia.org/wikipedia/commons/transcoded/4/49/Babbage_Engine_Demonstration_pt._3.webm/Babbage_Engine_Demonstration_pt._3.webm.480p.webm" controls style="width:100%"></video>
+
+---
+
+### History of computers
+
+|| Computer science | Physics
+|-
+| 1642 | Blaise Pascal's *mechanical calculator
+| 1687 || Isaac Newton's *Philosophiæ Naturalis Principia Mathematica*
+| 1821 || André Ampère's *theory of electrodynamics*
+| 1822 | Charles Babbage's *difference engine*
+| 1837 | Charles Babbage's *analytical engine*
+| 1842 | Ada Lovelace writes the first computer program
+| 1854 || Lord Kelvin's *On the Dynamical Theory of Heat*
+| 1871 || Maxwell's and Clausius *statistical thermodynamics*
+| 1873 || James C. Maxwell's *Treatise on Electricity and Magneitsm*
+| 1900 || Max Planck's *black body radiation law*
+| 1905 || Albert Einstein's *special relativity*
+| 1911 || Niels Bohr's *atomic model*
+| 1912 || Henri Poincaré *Sur la théorie des quanta*
+| 1916 || Albert Einstein's *general relativity*
+| 1926 || Erwin Schrödinger's *equation*.
+| 1927 || Werner Heisenberg's *uncertainity principle*
+| 1935 || Einstein-Podolsky-Rosen *quantum entanglement (spooky action at a distance)*
+| 1939 | Konrad Zuse's electromechanical computers
+| 1943 | Max Newman's *Colossus*
+| 1946 | *ENIAC*
+| 1947 | Transistors
+| 1952 | Integrated circuits
+| 1964 || John S. Bell's *inequalties*
+| 1980 || Quantum computing (Yuri Manin, Richard Feynman, ...)
+| 1994 || Peter Shor's *factoring algorithm*
+| 2??? | First quantum computer
+{:.pretty}
+
+---
+
+### Quantum computing
+
+##### Classical computers
+
+- Elementary states (bits): either **0** or **1**;
+- Elementary transformations (boolean gates): **AND**, **OR**, **NOT**, ...;
+- Information can be copied at will.
+
+##### Quantum computers
+
+- Quantum states (qubits): *a mix of **0** and **1***;
+- Elementary transformations (quantum gates), *reversible*:
+  **Hadamard**, **CNOT**, **Pauli X**, **Y** and **Z**, **CNOT**, **Toffoli**, **Fredkin**, ...;
+- Quantum information *collapses* to a classical state when read;
+- *No-cloning theorem*: information cannot be copied at will.
+
+[Quantum cats]()
+
+---
+
+### Qubit
+
+##### Mathematically
+  
+- Just an element of $$ℂ^2/ℝ$$.
+
+- Usually represented on a basis $$\bk{0}, \bk{1}$$:
+
+  $$|φ〉 = α\bk{0} + β\bk{1},\qquad α,β ∈ ℂ$$
+
+  where $$\abs{α}^2 + \abs{β}^2=1$$.
+
+- When *observed* (*measured*), we only obtain a *pure state*
+  $$\bk{0}$$, or $$\bk{1}$$ (with probabilities $$\abs{α}^2$$ and
+  $$\abs{β}^2$$, resp.).
+
+##### Phisically
+  
+- an atom with two possible energy states $$\bk{0}$$ and $$\bk{1}$$,
+- a photon with two possible polarizations,
+- ...
+
+---
+
+### Entanglement
+
+Two or more qubits can become *entangled*, also called a *superposition state*.
+
+##### Mathematically
+  
+- Qubits exists as *tensor products* of states, rather than as *cartesian products*,
+
+- e.g., the possible states for two qubits are
+
+  $$|φ〉 = α\bk{0}⊗\bk{0} + β\bk{0}⊗\bk{1} + γ\bk{1}⊗\bk{0} + δ\bk{1}⊗\bk{1},\qquad α,β,γ,δ ∈ ℂ$$
+
+  where $$\abs{α}^2+\abs{β}^2+\abs{γ}^2+\abs{δ}^2 = 1$$.
+
+- The dimension of the *state space* grows **exponentially** with the number of qubits!
+
+- Measuring collapses the state onto a classical one.
+
+> #### *Spooky action at a distance* (EPR)
+> - Entanglement can be carried over long distances;
+> - Tested experimentally over [hundreds of km](https://www.technologyreview.com/s/520886/japanese-telco-smashes-entanglement-distance-record/);
+> - ...very hard to maintain for a long time even locally, though.
+{:.box}
+
+---
+
+### Quantum circuits
+
+##### Quantum gates
+
+- *Unitary* matrices acting over the state space.
+- **Reversible**, because **physics is** (at small scale, at least).
+- Small set of **elementary gates** (similar to **AND**,
+  **OR**, ...).
+
+##### Quantum circuits
+
+- Networks of elementary quantum gates;
+- **Reversible:** no measuring happens before the very end.
+
+---
+
+### The most dangerous quantum circuit ever
+
+**Quantum Fourier transform** (QFT)
+
+- Computes a Fourier transform of a **quantum state**,
+- Circuit size **polynomial** in the number of qubits →
+  **logarithmic** in the size of the state space.
+
+![](https://upload.wikimedia.org/wikipedia/commons/a/af/Peter_Shor.jpg)
+
+##### Peter Shor's *period-finding* algorithm
+
+- Finds the *period* of a function $$ℤ/Nℤ → ℤ/Nℤ$$, in $$O(\log N)$$ quantum steps;
+- Immediate application to DLP;
+- Classical reduction from Integer factoring.
+
+---
+
+#### RSA is dead. Diffie-Hellman is dead
+
+Or is it?
+
+---
+
+### Post-quantum cryptography
+
+Slides at <http://defeo.lu/talks/yacc-27-09-12.pdf>
 
 ---
 ---
