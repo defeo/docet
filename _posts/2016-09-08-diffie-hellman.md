@@ -175,7 +175,7 @@ Ok, $$S$$ is a common *something*. **But is it a secret?**
 
 How can she recover $$S$$?
 
-Let's see an [example with $$G=ℤ/Nℤ$$]({% include nbviewer.url url='assets/jupyter/ 2016-09-08-diffie-hellman.ipynb' %}).
+Let's see an [example with $$G=ℤ/Nℤ$$]({% include nbviewer.url url='assets/jupyter/2016-09-08-diffie-hellman.ipynb' %}).
 
 ---
 
@@ -263,7 +263,7 @@ given by multiplication.
 If $$q-1$$ has a **large prime factor**, the DLP in $$\FF_q^*$$
 **seems to be hard**!
 
-[An example]({% include nbviewer.url url='assets/jupyter/ 2016-09-08-diffie-hellman.ipynb' %}).
+[An example]({% include nbviewer.url url='assets/jupyter/2016-09-08-diffie-hellman.ipynb#Diffie-Hellman-with-$\mathbb{F}_q^*$' %}).
 
 ---
 
