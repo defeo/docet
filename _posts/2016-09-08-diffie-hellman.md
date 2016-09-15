@@ -693,7 +693,7 @@ Let's work out [some examples]({% include nbviewer.url url='assets/jupyter/2016-
 - Quantum information *collapses* to a classical state when read;
 - *No-cloning theorem*: information cannot be copied at will.
 
-#### [Quantum cats]()
+#### [Quantum cats](http://www.approachingreality.org/)
 
 ---
 
