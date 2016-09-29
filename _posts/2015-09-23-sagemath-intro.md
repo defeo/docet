@@ -6,6 +6,7 @@ addons:
   mathjax: yes
   style_goodies: yes
 category: class
+description: ECC summer school
 tags: SageMath, elliptic curves
 ---
 

@@ -2,10 +2,10 @@
 title: Home
 ---
 
-# D.O.C.E.T
+# {{ site.title }} <span class="subtitle">{{ site.tagline }}</span>
 
-### Latest posts
 
 {% for p in site.posts %}
-* {{ p.date | date_to_string }}: [{{ p.title }}]({{site.baseurl}}{{ p.url }})
+[{{ p.title }}]({{site.baseurl}}{{ p.url }})
+: {{ p.date | date_to_string }} — *{{ p.description }}*
 {% endfor %}

@@ -5,6 +5,7 @@ addons:
   mathjax: yes
   style_goodies: yes
 category: class
+description: Mini-course for Paris Saclay master students
 tags: cryptography, discrete logarithm, Diffie-Hellman, elliptic curves, isogenies
 ---
 
