@@ -13,5 +13,7 @@ tags: cryptography, Diffie-Hellman, elliptic curves, isogenies
 [Open problems in isogeny-based cryptography]({{ site.baseurl }}/assets/slides/2016-09-29-lausanne.pdf)
 : `2016-09-29T14:00:00.798Z @46.5184,6.5638` — *École Polytecnique Fédérale de Lausanne*
 
+Many thanks to my hosts, and to all those who came!
+
 <script src="https://gist.github.com/defeo/84784aa66a559dcd7b4e0fb297f782ec.js"></script>
 
