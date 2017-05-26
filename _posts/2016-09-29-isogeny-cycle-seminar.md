@@ -1,7 +1,7 @@
 ---
 title: The isogeny cycle seminar
 category: talk
-description: Series of talks on isogeny
+description: Series of talks on isogenies
 tags: cryptography, Diffie-Hellman, elliptic curves, isogenies
 ---
 
