@@ -27,6 +27,11 @@ defaults:
       path: ''
     values:
       layout: default
+      addons:
+        favicon: yes
+        mathjax: yes
+#        print-link: yes
+#        about: yes
 
 # Collections
 collections:
