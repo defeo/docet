@@ -13,8 +13,11 @@ Lecture notes
 PDF Slides
 : [Isogeny graphs in cryptography]({{ site.baseurl }}/assets/slides/2018-03-19-postscryptum.pdf), 31pp.
 
+Jupyter+SageMath notebooks
+: Day 1 – [Using elliptic curves and isogenies in SageMath]({% include nbviewer.url url='assets/jupyter/PostScryptum+Day1.ipynb' %})
+
 Use SageMath in the cloud
 : Dedicated Jupyter server @UVSQ (GitHub account required):
-  <http://crypto.prism.uvsq.fr/sage>.
+  <https://crypto.prism.uvsq.fr/sage>.
 : CoCalc, free collaborative computation platform:
   <https://cocalc.com/>.
