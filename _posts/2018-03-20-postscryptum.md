@@ -15,6 +15,7 @@ PDF Slides
 
 Jupyter+SageMath notebooks
 : Day 1 – [Using elliptic curves and isogenies in SageMath]({% include nbviewer.url url='assets/jupyter/PostScryptum+Day1.ipynb' %})
+: Day 2 – [An SIDH toy example]({% include nbviewer.url url='assets/jupyter/SIDH.ipynb' %})
 
 Use SageMath in the cloud
 : Dedicated Jupyter server @UVSQ (GitHub account required):
