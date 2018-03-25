@@ -13,10 +13,13 @@ Lecture notes
 PDF Slides
 : [Isogeny graphs in cryptography]({{ site.baseurl }}/assets/slides/2018-03-19-postscryptum.pdf), 31pp.
 
-Jupyter+SageMath notebooks
+Jupyter+SageMath notebooks [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/defeo/PostScryptum/master)
 : Day 1 – [Using elliptic curves and isogenies in SageMath]({% include nbviewer.url url='assets/jupyter/2018-03-20-PostScryptum.ipynb' %})
 : Day 2 – [An SIDH toy example]({% include nbviewer.url url='assets/jupyter/2018-03-22-PostScryptum.ipynb' %})
 
 Use SageMath in the cloud
+: [Run the notebooks above in the
+  cloud](https://mybinder.org/v2/gh/defeo/PostScryptum/master),
+  powered by MyBinder.
 : CoCalc, free collaborative computation platform:
   <https://cocalc.com/>.
