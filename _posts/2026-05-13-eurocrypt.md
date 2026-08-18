@@ -1,11 +1,13 @@
 ---
 title: "Isogeny Crypto, coming of age"
 category: talk
-description: Slides of an invited talk at Eurocrypt 2026
+description: Invited talk at Eurocrypt 2026
 tags: cryptography, isogenies, SQIsign
 ---
 
-### Slides for [Eurocrypt, May 2026](https://eurocrypt.iacr.org/2026/)
+### Isogeny Crypto, coming of age
 
-[Isogeny Crypto, coming of age]({{ site.baseurl }}/assets/slides/2026-05-13-eurocrypt.pdf)
-: Roma, *Italy*
+Invited talk at [Eurocrypt, May 2026](https://eurocrypt.iacr.org/2026/), Roma, *Italy*.
+
+- [slides]({{ site.baseurl }}/assets/slides/2026-05-13-eurocrypt.pdf)
+- [video](https://www.youtube.com/watch?v=pO4We8yh8JM)
